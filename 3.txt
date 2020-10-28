@@ -1,0 +1,28 @@
+function [res N] = sit(f,x0, eps)
+syms x;
+k=(subs(f,x0));
+xp = x0; n=0;
+while abs(k - xp) > eps
+xp = k;
+k = (subs(f,k));
+n=n+1;
+end
+res = sym2poly(k);
+N=n;
+end
+
+
+f = (4*x^3+1)/6;
+[res N]=sit(f,0.25,0.0001)
+res =    0.1699
+N =     3
+
+f = sqrt(1.5-0.25/x);
+[res N]=sit(f,1.25,0.0001)
+res =    1.1309
+N =     3
+
+f = -sqrt(1.5-0.25/x);
+[res N]=sit(f,-1.25,0.0001)
+res =   -1.3008
+N =     3
